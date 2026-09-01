@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class Driver : MonoBehaviour
 {
-    [SerializeField] float steerSpeed = 0.1f;
-    [SerializeField] float moveSpeed = 0.01f;
+    [SerializeField] float steerSpeed = 200f;
+    [SerializeField] float moveSpeed = 10f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,6 +15,7 @@ public class Driver : MonoBehaviour
     {
         float steer = 0f;
         float move = 0f;
+
 
         if(Keyboard.current.wKey.isPressed)
         {
@@ -32,7 +33,11 @@ public class Driver : MonoBehaviour
         {
             steer = -1f;
         }
-        transform.Rotate(0, 0, steerSpeed * steer);
-        transform.Translate(0, moveSpeed * move, 0);
+
+        float moveAmount = move * moveSpeed * Time.deltaTime;
+        float steerAmount = steer * steerSpeed * Time.deltaTime;
+
+        transform.Rotate(0, 0, steerAmount);
+        transform.Translate(0, moveAmount, 0);
     }
 }
